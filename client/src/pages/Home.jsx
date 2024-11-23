@@ -17,18 +17,19 @@ export const Home = () => {
       const response = await getPosts(selectedAuthor);
       setPosts(response.data.posts);
       
-      // Extract unique authors with their IDs
-      const uniqueAuthors = response.data.posts.reduce((acc, post) => {
-        if (post.authorId && !acc.find(a => a.id === post.authorId._id)) {
-          acc.push({
-            id: post.authorId._id,
-            email: post.authorId.email
-          });
-        }
-        return acc;
-      }, []);
-      
-      setAuthors(uniqueAuthors);
+      // Only fetch authors list when showing all posts
+      if (!selectedAuthor) {
+        const uniqueAuthors = response.data.posts.reduce((acc, post) => {
+          if (post.authorId && !acc.find(a => a.id === post.authorId._id)) {
+            acc.push({
+              id: post.authorId._id,
+              email: post.authorId.email
+            });
+          }
+          return acc;
+        }, []);
+        setAuthors(uniqueAuthors);
+      }
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
@@ -40,18 +41,20 @@ export const Home = () => {
     <div className="pt-20 max-w-4xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Latest Blog Posts</h1>
-        <select 
-          className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={selectedAuthor}
-          onChange={(e) => setSelectedAuthor(e.target.value)}
-        >
-          <option value="">All Authors</option>
-          {authors.map((author) => (
-            <option key={author.id} value={author.id}>
-              {author.email}
-            </option>
-          ))}
-        </select>
+        <div className="ml-auto"> {/* Added ml-auto to push filter to right */}
+          <select 
+            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={selectedAuthor}
+            onChange={(e) => setSelectedAuthor(e.target.value)}
+          >
+            <option value="">All Authors</option>
+            {authors.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.email}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="space-y-6">
         {posts.map((post) => (

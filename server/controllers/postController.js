@@ -42,27 +42,28 @@ exports.getAllPosts = async (req, res, next) => {
 
 // Get posts by a specific author
 exports.getPostsByAuthor = async (req, res, next) => {
-  try {
-    const { author } = req.query;
-
-    if (!author) {
-      return next(new ErrorHandler('Author ID is required', 400));
+    try {
+      const { authorId } = req.query; // Changed from 'author' to 'authorId' to match frontend
+  
+      if (!authorId) {
+        return next(new ErrorHandler('Author ID is required', 400));
+      }
+  
+      const posts = await Post.find({ authorId }).populate('authorId', 'name email');
+      console.log('Posts by author', posts);
+      
+      if (!posts.length) {
+        return next(new ErrorHandler('No posts found for this author', 404));
+      }
+  
+      res.status(200).json({
+        success: true,
+        posts
+      });
+    } catch (error) {
+      next(error);
     }
-
-    const posts = await Post.find({ authorId: author }).populate('authorId', 'name email');
-    console.log('Posts by author', posts);
-    if (!posts.length) {
-      return next(new ErrorHandler('No posts found for this author', 404));
-    }
-
-    res.status(200).json({
-      success: true,
-      posts
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  };
 
 // Edit a post
 exports.updatePost = async (req, res, next) => {
