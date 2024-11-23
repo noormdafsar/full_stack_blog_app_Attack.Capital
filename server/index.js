@@ -4,11 +4,19 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary').v2;
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
 const PORT = process.env.PORT || 4000;
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Middleware
 app.use(express.json({ limit: '50mb' }));
