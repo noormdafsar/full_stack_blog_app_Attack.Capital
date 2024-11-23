@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signUp } from '../services/api';
+import { useAuth } from '../context/AuthContext'; // Add this import
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth(); // Add this line
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signUp(formData);
-      navigate('/login');
+      const response = await signUp(formData);
+      // After successful signup, immediately log in the user
+      login(response.data.user, response.data.token);
+      navigate('/dashboard'); // Navigate directly to dashboard instead of login
     } catch (error) {
       setError(error.response?.data?.message || 'Sign up failed');
     }

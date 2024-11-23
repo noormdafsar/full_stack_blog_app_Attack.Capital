@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 export const LandingPage = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-            Welcome to Our Blog Platform
+            Welcome to Our Blog Application
           </h1>
           <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-12">
             Share your thoughts and connect with others
