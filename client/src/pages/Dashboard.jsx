@@ -41,18 +41,19 @@ export const Dashboard = () => {
     }
   };
 
+  
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+    <div className="pt-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-8">Dashboard</h1>
       
-      <div className="mb-8">
+      <div className="mb-8 bg-white rounded-lg shadow-md p-4 sm:p-6">
         <h2 className="text-xl font-bold mb-4">Create New Post</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input
               type="text"
               placeholder="Title"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={newPost.title}
               onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
               required
@@ -61,7 +62,7 @@ export const Dashboard = () => {
           <div>
             <textarea
               placeholder="Content"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 sm:h-48"
               value={newPost.content}
               onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
               required
@@ -69,17 +70,17 @@ export const Dashboard = () => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full sm:w-auto px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
           >
             Create Post
           </button>
         </form>
       </div>
 
-      <div>
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
         <h2 className="text-xl font-bold mb-4">Your Posts</h2>
         <div className="space-y-6">
-          {posts && posts.map((post) => (
+          {posts.map((post) => (
             <PostCard
               key={post._id}
               post={post}
@@ -88,7 +89,7 @@ export const Dashboard = () => {
             />
           ))}
           {posts.length === 0 && (
-            <p className="text-gray-500">You haven't created any posts yet.</p>
+            <p className="text-gray-500 text-center py-4">You haven't created any posts yet.</p>
           )}
         </div>
       </div>

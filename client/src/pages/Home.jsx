@@ -38,12 +38,12 @@ export const Home = () => {
   };
 
   return (
-    <div className="pt-20 max-w-4xl mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Latest Blog Posts</h1>
-        <div className="ml-auto"> {/* Added ml-auto to push filter to right */}
+    <div className="pt-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
+        <h1 className="text-2xl sm:text-3xl font-bold">Latest Blog Posts</h1>
+        <div className="w-full sm:w-auto">
           <select 
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={selectedAuthor}
             onChange={(e) => setSelectedAuthor(e.target.value)}
           >
